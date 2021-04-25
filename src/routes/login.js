@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 
 const router = Router();
 
@@ -7,8 +8,8 @@ router.get("/login", (req, res) => {
     res.send("login page");
 });
 
-router.post("/login", (req, res) => {
-    res.send(req.body);
+router.post("/login", passport.authenticate('local', { failureRedirect: "/login" }), (req, res) => {
+    res.send(true);
 });
 
 export { router };
