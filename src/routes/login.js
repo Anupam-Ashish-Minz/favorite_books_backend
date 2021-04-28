@@ -9,7 +9,16 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", passport.authenticate('local', { failureRedirect: "/login" }), (req, res) => {
-    res.send(true);
+    res.redirect("/profile");
+});
+
+router.get("/api/loginStatus", (req, res) => {
+    res.send(req.isAuthenticated());
+});
+
+router.post("/api/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
 });
 
 export { router };

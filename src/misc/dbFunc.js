@@ -7,7 +7,7 @@ function mysqlConnect (query, callBack) {
         host     : 'localhost',
         user     : 'test',
         password : 'test',
-        database : 'test'
+        database : 'favorite_books'
     });
 
     connection.connect();
