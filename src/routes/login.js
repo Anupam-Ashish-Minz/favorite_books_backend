@@ -7,8 +7,8 @@ router.get("/login", (req, res) => {
     res.send("login - dummy route to be replaced with frontend");
 });
 
-router.post("/login", passport.authenticate('local', { failureRedirect: "/login" }), (req, res) => {
-    res.redirect("/profile");
+router.post("/login", passport.authenticate('local', { failureRedirect: "/login", successReturnToOrRedirect: "/" }), (req, res) => {
+    res.redirect("/");
 });
 
 router.get("/api/loginStatus", (req, res) => {
