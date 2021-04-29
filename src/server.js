@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import { router as loginRouter } from './routes/login';
+import { router as favoritesRouter } from './routes/favorites';
 import passport from 'passport';
 import { passportConf } from './misc/passportConf';
 
@@ -25,6 +26,7 @@ passport.deserializeUser((email, password, done) => {
 });
 
 app.use("/", loginRouter);
+app.use("/api/favorites", favoritesRouter);
 
 app.get("/", (req, res) => {
     res.send("the server is running");

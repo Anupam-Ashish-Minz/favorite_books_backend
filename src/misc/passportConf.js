@@ -1,7 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import util from 'util';
-import { mysqlConnect } from '../misc/dbFunc';
+import { execQuery } from '../misc/dbFunc';
 
 function passportConf() {
     passport.use(new LocalStrategy({
@@ -9,8 +8,7 @@ function passportConf() {
         passwordField: 'password'
     }, async (email, password, done)=>{
         const query = "select * from users where email=\""+email+"\";";
-        const promisedUser = util.promisify(mysqlConnect);
-        const user = await promisedUser(query);
+        const user = await execQuery(query);
         if (user[0]?.email == email && user[0]?.password == password) {
             return done(null, email);
         } else {
