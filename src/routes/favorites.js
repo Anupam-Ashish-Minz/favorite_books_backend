@@ -16,4 +16,20 @@ router.get("/", isLoggedIn, async (req, res) => {
     }
 });
 
+router.post("/add_book", isLoggedIn, async (req, res) => {
+    const query = `INSERT INTO books values ( '${req.user}', '${req.body.book_id}' );`
+    try {
+        await execQuery(query);
+        console.log("insert successful");
+    } catch(e) {
+        console.log(e);
+        res.status(400);
+        if (e.code.trim() == 'ER_DUP_ENTRY') {
+            res.status(400);
+            res.send(`database already containes ${req.user}-${req.body.book_id}`);
+        }
+    }
+    res.send();
+});
+
 export { router };
